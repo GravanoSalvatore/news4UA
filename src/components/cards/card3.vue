@@ -4,8 +4,23 @@
 
             <div>
               <v-row v-for="item in articles" :key="item" class="py-4">
-                <v-col cols="12" md="4">
-                  <v-card flat height="100%">
+               
+               
+                <v-col cols="12" 
+                          md="4">
+
+
+                          <v-hover
+                    v-slot:default="{ hover }"
+                    close-delay="50"
+                    open-delay="50"
+                >
+                  <v-card flat
+                          height="100%" 
+                          :color="hover ? 'white' : 'transparent'"
+                          :elevation="hover ? 12 : 0"
+                          flat
+                          hover>
                     <v-img
                         :aspect-ratio="16 / 9"
                         height="100%"
@@ -19,7 +34,9 @@
                         v-else
                         src="https://pressclubswfl.org/wp-content/uploads/2023/08/News.jpg"
                     ></v-img>
+                  
                   </v-card>
+                </v-hover>
                 </v-col>
 
                 <v-col>

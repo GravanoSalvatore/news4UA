@@ -90,13 +90,58 @@
             </div>
 
             <v-row>
+
+
+              <div class="wrap">
+<div class="div "> 
+    <button @click="searchClose" class="close">
+        <img style="width:45px;color:black" 
+        src="https://freesvg.org/img/close-button.png">
+    </button> 
+  
+  <div v-for="item in news"
+  
+  :key="item">
+  
+
+  <!-- <img class="img-fluid w-100" v-if="item.urlToImage" :src="item.urlToImage" style="object-fit: cover;">
+ <img class="img-fluid w-100" v-else src="#" style="object-fit: cover;">
+                                -->
+ <a class="title" :href="item.url" 
+         target="_blank ">
+         {{item.title}}</a><br/><hr/>
+      
+  
+  </div> 
+  </div>
+</div>
+
+
+
+
+
               <v-col cols="8">
                 <v-text-field
-                    hide-details
-                    label="Filled"
-                    light
-                    solo
+                id="input"
+                v-model="searchT" 
+                    placeholder="Search news" 
+                    v-on:input="onSearchType"  
+                    class="form-control mt-1  bg-black"  
+                    aria-label="Search"
+                    type="text"
                 ></v-text-field>
+                <!-- <v-input
+                   
+
+
+
+                    v-model="searchT" 
+                    placeholder="Search news" 
+                    v-on:input="onSearchType"  
+                    class="form-control mt-1 input bg-black"  
+                    aria-label="Search"
+                    type="text">
+                </v-input> -->
               </v-col>
 
               <v-col cols="4">
@@ -145,13 +190,41 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
+  methods:{
+    onSearchType: function () {
+      const search = (document.querySelector(".div").style.display = "block");
+      var url =
+        "https://api-epicnews404.azurewebsites.net/Articles/TopHeadlines?SiteId=1&CategoryId=3&Language=14&Page=2&PageSize=100" +
+        "&q=" +
+        this.searchT;
+
+      axios
+        .get(url)
+        .then((response) => {
+          this.news = response.data.items;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    searchClose() {
+      const searchClosed = (document.querySelector(".div").style.display =
+        "none");
+        const searchClosed2 = document.getElementById("input").value ='';
+       
+    },
+  },
   components:{
     back:()=>import ('../../components/fishki/back-to-top.vue')
 
   },
   data: () => ({
+    news: [],
+      searchT: "",
+      news: [],
     heroui: [
       {
         text: "Github",
@@ -179,7 +252,37 @@ export default {
   }),
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
+.close{
+//  position: ;
+  // left:228px;
+// bottom:600px;
+//   left:170px;
+ }
+.div {
+   box-shadow: 0 0 20px 0 rgb(0 0 0 / 50%);
+  position: fixed;
+  border: 2px solid white;
+  display: none;
+  width: 250px;
+  margin-left: px;
+  margin-right: 30px;
+
+  border-radius: 5px;
+
+  top: 67px;
+  padding: 20px;
+
+  height: 515px;
+  overflow-x: hidden;
+  overflow-y: auto;
+   background-color: white;
+  color: rgb(3, 3, 3);
+  z-index: 5000;
+  //   display: none;
+  @media screen and (max-width: 767px) {
+  }
+}
 .elevation-4{
   margin: 7px;
 }

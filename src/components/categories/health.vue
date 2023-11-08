@@ -5,7 +5,7 @@
           <div>
             <div>
               <div>
-                <h2 class="text-h4 font-weight-bold"><router-link to="Health">HEALTH</router-link></h2>
+                <h3 class=" font-weight-bold"><router-link to="Health">HEALTH</router-link></h3>
   
                 <!-- <h4 class="text-h6">Some category description goes here</h4> -->
               </div>

@@ -1,14 +1,16 @@
 <template>
   <div>
-    <v-navigation-drawer
+    
+   
+    <v-navigation-drawer 
         v-if="!$vuetify.breakpoint.smAndUp"
         v-model="drawer"
         :clipped="$vuetify.breakpoint.lgAndUp"
         app
-        color="white"
+        color="black"
         dark
     >
-      <v-list color="primary" nav>
+      <v-list color="primary" nav >
         <v-list-item
             v-for="(item, i) in btnItems"
             :key="i"
@@ -88,9 +90,13 @@
                 exact-active-class="accent--text"
                 text
             >{{ item.title }}
+
+
+
+            
             </v-btn
             >
-            
+           
           </v-col>
 
 
@@ -102,6 +108,21 @@
 
 
           <v-col v-if="$vuetify.breakpoint.mdAndUp" class="text-right">
+            <v-menu left bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon style="color:white">mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item style="padding:7px">
+          <geo/></v-list-item>
+          <!-- <v-list-item v-for="n in 4" :key="n" @click="() => {}">
+            Option {{ n }}
+          </v-list-item> -->
+        </v-list>
+      </v-menu>
             <v-btn
                 v-for="(item, i) in btnItems"
                 :key="i"
@@ -112,10 +133,11 @@
                 :to="item.to"
                 class="ml-3 text-capitalize"
             >
+            
             <v-avatar class="elevation-4" color="">
               <v-icon large> mdi-login</v-icon>
                 </v-avatar>
-             
+           
               <!-- {{ item.text }} -->
             </v-btn>
           </v-col>
@@ -133,12 +155,22 @@
 
     
   </div>
+
+
+  
 </template>
 
 <script>
+import geo from '../Geo.vue'
 export default {
+  comments:{geo},
   data: () => ({
-   
+    items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+      ],
     
     drawer: null,
     btnItems: [
@@ -172,10 +204,10 @@ export default {
       //   to: "/authors",
       // },
      
-      {
-        title: "Sport",
-        to: "/sport",
-      },
+      // {
+      //   title: "Sport",
+      //   to: "/sport",
+      // },
       {
         title: "Science",
         to: "/science",
@@ -199,6 +231,8 @@ export default {
   color:white
 }
 
-
+.v-navigation-drawer__content{
+  background-color: rgb(162, 154, 154);
+}
 
 </style>
